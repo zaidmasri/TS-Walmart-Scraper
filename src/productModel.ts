@@ -58,8 +58,60 @@ interface IRating {
   sellerReviews?: number;
   sellerRating?: number;
 }
+export interface IReview {
+  id: string,
+  author: {
+    authorId: string,
+    userNickname: string
+  },
+  reviewSubmissionTime: Date,
+  rating: string,
+  url: string,
+  isVerifiedPurchase: boolean,
+  reviewTitle: string | null,
+  reviewText: string,
+  positiveFeedback: number,
+  negativeFeedback: number,
+  sellerName: string | null,
+  features: { name: string, value: string }[] | null,
+  fulfilledBy: string | null,
+  isIncentivized: boolean,
+  clientResponses: {
+    date: null | string,
+    department: string,
+    logoImage: string,
+    name: string | null,
+    response: string
+  }[] | null
+  isWalmartAssociate: boolean
+  pageNumber: number,
+  syndicationSource: {
+    contentLink: string | null,
+    logoImageUrl: string,
+    name: string
+  },
+  media: {
+    caption: string | null,
+    id: string,
+    mediaType: string,
+    normalUrl: string,
+    rating: number,
+    reviewId: string,
+    thumbnailUrl: string,
+  }[] | null,
+  status: string | null
+  isInternational: boolean,
+}
+type IReviews = IReview[]
 
-class ItemModel {
+interface IReviewModel {
+  pagesCount: number,
+  ratingCount: number;
+  reviewCount: number;
+  reviews: IReviews;
+}
+
+class ProductModel {
   URL: string;
   idCodes: IIdCodes;
   seller: ISeller;
@@ -74,6 +126,7 @@ class ItemModel {
   category: ICategory;
   info: IInformational;
   variants: IVariant[];
+  reviewsModel: IReviewModel;
 
   constructor() {
     this.URL = "";
@@ -90,11 +143,17 @@ class ItemModel {
     this.category = {};
     this.info = {};
     this.variants = [];
+    this.reviewsModel = {
+      pagesCount: -1,
+      ratingCount: -1,
+      reviewCount: -1,
+      reviews: []
+    };
   }
 }
 
 export {
-  ItemModel,
+  ProductModel as ItemModel,
   IIdCodes,
   ISeller,
   IMedia,
@@ -105,4 +164,5 @@ export {
   IInformational,
   IVariant,
   IRating,
+  IReviewModel
 };

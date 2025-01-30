@@ -9,7 +9,7 @@ import {
   IRating,
   ISeller,
   IVariant,
-} from "./itemModel.js";
+} from "./productModel.js";
 import { baseUrl } from "./main.js";
 
 function getSeller(itemData: any): ISeller {

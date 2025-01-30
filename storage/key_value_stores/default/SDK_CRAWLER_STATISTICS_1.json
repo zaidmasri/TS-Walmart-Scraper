@@ -1,0 +1,69 @@
+{
+  "requestsFinished": 16544,
+  "requestsFailed": 852,
+  "requestsRetries": 4194,
+  "requestsFailedPerMinute": 0,
+  "requestsFinishedPerMinute": 6,
+  "requestMinDurationMillis": null,
+  "requestMaxDurationMillis": 1777699,
+  "requestTotalFailedDurationMillis": 1525374,
+  "requestTotalFinishedDurationMillis": 57125807,
+  "crawlerStartedAt": "2025-01-27T13:22:50.435Z",
+  "crawlerFinishedAt": "2025-01-30T04:29:29.706Z",
+  "statsPersistedAt": "2025-01-30T04:29:29.706Z",
+  "crawlerRuntimeMillis": 153365468,
+  "crawlerLastStartTimestamp": 1738058004238,
+  "requestRetryHistogram": [
+    13202,
+    1982,
+    782,
+    365,
+    360,
+    156,
+    37,
+    18,
+    24,
+    26,
+    435,
+    null,
+    null,
+    3,
+    null,
+    null,
+    null,
+    2,
+    1,
+    1,
+    2
+  ],
+  "statsId": 1,
+  "requestAvgFailedDurationMillis": 1790,
+  "requestAvgFinishedDurationMillis": 3453,
+  "requestTotalDurationMillis": 58651181,
+  "requestsTotal": 17396,
+  "requestsWithStatusCode": {
+    "200": 85
+  },
+  "errors": {
+    "/Users/zaidmasri/Developer/github.com/zaidmasri/walmart-data/TS-Walmart-Scraper/src/routes.ts:183:44": {
+      "missing error code": {
+        "Error": {
+          "Request blocked.": {
+            "count": 2
+          }
+        }
+      }
+    }
+  },
+  "retryErrors": {
+    "/Users/zaidmasri/Developer/github.com/zaidmasri/walmart-data/TS-Walmart-Scraper/src/routes.ts:183:44": {
+      "missing error code": {
+        "Error": {
+          "Request blocked.": {
+            "count": 76
+          }
+        }
+      }
+    }
+  }
+}

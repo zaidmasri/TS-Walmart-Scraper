@@ -1,12 +1,14 @@
 import {
-  CheerioCrawler,
-  CheerioCrawlerOptions,
   log,
   RequestQueue,
   KeyValueStore,
   ProxyConfiguration,
+  PuppeteerCrawler,
+  PuppeteerCrawlerOptions,
+  StorageManager,
+  Dataset,
 } from "crawlee";
-import { loadInputKeywords, loadInputUrls } from "./inputLoaders.js";
+import { loadInputKeywords, loadInputUrls, loadInputReviewUrls } from "./inputLoaders.js";
 import { router } from "./routes.js";
 
 interface InputSchema {
@@ -36,13 +38,16 @@ const pagination = { startPageNumber, finalPageNumber };
 
 const requestQueue = await RequestQueue.open();
 
-const crawlerOptions: CheerioCrawlerOptions = {
+const crawlerOptions: PuppeteerCrawlerOptions = {
   requestQueue,
-  maxConcurrency: 100,
-  maxRequestRetries: 5,
+  requestHandler: router,
+  maxConcurrency: 5,
+  maxRequestRetries: 20,
   navigationTimeoutSecs: 90,
   requestHandlerTimeoutSecs: 90,
-  requestHandler: router,
+  headless: true,
+  maxRequestsPerMinute: 100,
+
 };
 
 await loadInputUrls(productUrls, undefined, pricing);
@@ -51,16 +56,24 @@ await loadInputUrls(listingUrls, pagination, pricing);
 
 await loadInputKeywords(keywords, pagination, pricing);
 
+const crawler = new PuppeteerCrawler(crawlerOptions);
+
+log.info("Starting the crawl.");
+await crawler.run();
+log.info("Crawl finished.");
+
+
+await loadInputReviewUrls()
 const useProxy = false;
 if (useProxy) {
   const proxyConfiguration = new ProxyConfiguration({ proxyUrls: [] });
   Object.assign(crawlerOptions, { proxyConfiguration });
 }
 
-const crawler = new CheerioCrawler(crawlerOptions);
 
-log.info("Starting the crawl.");
-await crawler.run();
-log.info("Crawl finished.");
-
+const reviewRequestQueue = await RequestQueue.open('reviews')
+const reviewCrawler = new PuppeteerCrawler({ ...crawlerOptions, requestQueue: reviewRequestQueue })
+log.info("Starting the review crawl.");
+await reviewCrawler.run()
+log.info("Review crawl finished.");
 export { baseUrl };

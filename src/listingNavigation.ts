@@ -23,7 +23,7 @@ async function navigateToItemUrls(
   const itemUrls = getItemUrls(listingData);
 
   for (const url of itemUrls) {
-    const request = getRequest(url);
+    const request = getRequest({ url });
     Object.assign(request.userData!, { pricing });
     await requestQueue.addRequest(request);
   }
@@ -61,7 +61,7 @@ async function navigatePageRange(
   const navigationUrlList = generatePageRange(currentUrl, startPage, finalPage);
 
   for (const url of navigationUrlList) {
-    const request = getRequest(url);
+    const request = getRequest({ url });
     Object.assign(request.userData!, { pricing });
     await requestQueue.addRequest(request);
   }

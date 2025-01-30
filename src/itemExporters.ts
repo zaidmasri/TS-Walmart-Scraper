@@ -1,5 +1,5 @@
 import { Dataset, log } from "crawlee";
-import { ItemModel } from "./itemModel.js";
+import { ItemModel } from "./productModel.js";
 import {
   getPrices,
   getCodes,
@@ -54,5 +54,12 @@ async function exportItem(
 
   await Dataset.pushData(item);
 }
+
+
+// async function exportReviewItem(currentUrl: string, itemData: any): Promise<void> {
+//   const review = new ReviewModel();
+//   console.log({ review, currentUrl, itemData })
+
+// }
 
 export { exportItem };
